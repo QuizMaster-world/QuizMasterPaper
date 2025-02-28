@@ -6,7 +6,7 @@ QuizMasterPaper is a simple GUI-based quiz creator application to export the qui
 
 ## Installation
 
-1. Clone this repository via terminal ```git clone https://github.com/hermonochy/QuizMasterPaper```
+1. Clone this repository via terminal ```git clone https://github.com/oxcobu/QuizMasterPaper```
 2. Enter the directory containing the game executable: ```cd QuizMasterPaper```
 3. Set up a new virtual environment: ```python3 -m venv venv```
 4. Activate the environment: ```source venv/bin/activate``` (To decativate, type `deactivate`)
