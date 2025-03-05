@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import PySimpleGUI as sg
 import json
+import random
 from dataclasses import dataclass, field
 from typing import List
 from fpdf import FPDF
@@ -17,6 +18,7 @@ class QuizQuestion:
 
 questionList = []
 
+
 def create_pdf(quiz_title, questions):
     pdf = FPDF()
     pdf.add_page()
@@ -26,9 +28,12 @@ def create_pdf(quiz_title, questions):
 
     for i, question in enumerate(questions):
         pdf.cell(200, 10, txt=f"{i + 1}. {question.question}", ln=True)
-        pdf.cell(200, 10, txt=f"  A) {question.correctAnswer}", ln=True)
-        for j, wrong_answer in enumerate(question.wrongAnswers):
-            pdf.cell(200, 10, txt=f"  {chr(66 + j)}) {wrong_answer}", ln=True)
+        
+        all_answers = [question.correctAnswer] + question.wrongAnswers
+        random.shuffle(all_answers)
+        
+        for j, answer in enumerate(all_answers):
+            pdf.cell(200, 10, txt=f"  {chr(65 + j)}) {answer}", ln=True)
         pdf.cell(200, 10, txt="", ln=True)
 
     pdf_file_path = f"output/{quiz_title}.pdf"
@@ -40,9 +45,12 @@ def save_as_txt(quiz_title, questions):
         f.write(f"{quiz_title}\n")
         for i, question in enumerate(questions):
             f.write(f"{i + 1}. {question.question}\n")
-            f.write(f"  A) {question.correctAnswer}\n")
-            for j, wrong_answer in enumerate(question.wrongAnswers):
-                f.write(f"  {chr(66 + j)}) {wrong_answer}\n")
+            
+            all_answers = [question.correctAnswer] + question.wrongAnswers
+            random.shuffle(all_answers)
+            
+            for j, answer in enumerate(all_answers):
+                f.write(f"  {chr(65 + j)}) {answer}\n")
             f.write("\n")
     sg.popup("Quiz saved as TXT!", title="Success")
 
