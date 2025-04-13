@@ -19,7 +19,7 @@ class QuizQuestion:
 questionList = []
 
 
-def create_pdf(quiz_title, questions):
+def save_as_pdf(quiz_title, questions):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
@@ -130,13 +130,13 @@ while True:
     if event == 'Save':
         quiz_title = values['quiz_name']
         if values['pdf']:
-            create_pdf(quiz_title, questionList)
+            save_as_pdf(quiz_title, questionList)
         elif values['txt']:
             save_as_txt(quiz_title, questionList)
 
     if event == 'Open':
         try:
-            filename = sg.popup_get_file('Open', no_window=True, initial_folder="quizzes",
+            filename = sg.popup_get_file('Open', no_window=True, initial_folder="Quizzes",
                                           file_types=(("All JSON Files", "*.json"), ("All Files", "*.*")))
             with open(filename, 'r') as file:
                 quizDicts = json.load(file)
